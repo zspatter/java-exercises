@@ -10,6 +10,7 @@ public class Ex12_30
     {
         File file = getFile();
         verifyFileExists(file);
+        System.out.println();
 
         readLines(file);
         printResults();
@@ -17,7 +18,7 @@ public class Ex12_30
 
     private static File getFile()
     {
-        System.out.println("Enter a filename:");
+        System.out.print("Enter a filename: ");
         return new File(scanner.next());
     }
 
@@ -32,7 +33,7 @@ public class Ex12_30
         } catch (FileNotFoundException e)
         {
             System.out.println("No file " + file.getName() + " was found.");
-            System.exit(2);
+            System.exit(1);
         } catch (IOException e)
         {
             System.out.println(e.getMessage());
@@ -53,7 +54,7 @@ public class Ex12_30
     private static void printResults()
     {
         for (int i = 0; i < alphaCounts.length; i++)
-            System.out.printf("Number of %s's: %d\n", (char) ('A' + i), alphaCounts[i]);
+            System.out.printf("Total number of %s's:%3s%d\n", (char) ('A' + i), "", alphaCounts[i]);
     }
 
     private static void verifyFileExists(File file)
@@ -61,7 +62,7 @@ public class Ex12_30
         if (!file.exists())
         {
             System.out.println("No file " + file.getName() + " was found.");
-            System.exit(2);
+            System.exit(1);
         }
     }
 }
