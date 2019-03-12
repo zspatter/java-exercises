@@ -9,7 +9,7 @@ public class Ex12_13
     public static void main(String[] args)
     {
         validateCommandArguments(args);
-        File file = new File(args[1]);
+        File file = new File(args[0]);
         verifyFileExists(args, file);
 
         countCharsAndWords(file);
@@ -52,9 +52,9 @@ public class Ex12_13
 
     private static void printCounts()
     {
-        System.out.printf("%12s %d\n", "Characters:", charCount);
-        System.out.printf("%12s %d\n", "Words:", wordCount);
-        System.out.printf("%12s %d\n", "Lines:", lineCount);
+        System.out.printf("%-12s %d\n", "Characters:", charCount);
+        System.out.printf("%-12s %d\n", "Words:", wordCount);
+        System.out.printf("%-12s %d\n", "Lines:", lineCount);
     }
 
     private static void validateCommandArguments(String[] args)
@@ -70,8 +70,8 @@ public class Ex12_13
     {
         if (!file.exists())
         {
-            System.out.println("No file " + args[1] + " was found.");
-            System.exit(2);
+            System.out.println("No file " + args[0] + " was found.");
+            System.exit(1);
         }
     }
 }
