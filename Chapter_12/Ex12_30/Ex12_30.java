@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.io.*;
 import java.util.Scanner;
 
 public class Ex12_30
@@ -10,12 +8,10 @@ public class Ex12_30
 
     public static void main(String[] args)
     {
-        System.out.println(Arrays.toString(alphaCounts));
         File file = getFile();
         verifyFileExists(file);
 
         readLines(file);
-        System.out.println(Arrays.toString(alphaCounts));
         printResults();
     }
 
@@ -27,18 +23,21 @@ public class Ex12_30
 
     private static void readLines(File file)
     {
-        try (Scanner read = new Scanner(file))
+        try (BufferedReader br = new BufferedReader(new FileReader(file)))
         {
-            String s = "a";
-               while (read.hasNext())
-               {
-                   s = read.next().toUpperCase();
-                   countLetters(s);
-               }
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                countLetters(line.toUpperCase());
+            }
         } catch (FileNotFoundException e)
         {
             System.out.println("No file " + file.getName() + " was found.");
             System.exit(2);
+        } catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+            System.exit(1);
         }
     }
 
