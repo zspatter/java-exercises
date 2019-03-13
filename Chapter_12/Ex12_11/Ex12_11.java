@@ -9,17 +9,10 @@ public class Ex12_11
     private static StringBuilder sb = new StringBuilder();
     private static String replacedText;
 
-//    private static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args)
     {
         validateCommandArguments(args);
         File file = new File(args[1]);
-//        System.out.println("Enter file:");
-//        File file = new File(scanner.next());
-//        System.out.println("string to remove:");
-//        String remove = scanner.next();
-
         verifyFileExists(file);
 
         readFile(args[0], file);
@@ -32,7 +25,8 @@ public class Ex12_11
         {
             while (scanner.hasNext())
             {
-                sb.append(scanner.nextLine() + "\n");
+                sb.append(scanner.nextLine());
+                sb.append("\n");
             }
             removeTextFromString(removeText);
         } catch (FileNotFoundException e)
