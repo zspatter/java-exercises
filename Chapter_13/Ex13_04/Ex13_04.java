@@ -12,7 +12,7 @@ public class Ex13_04
         }
         Calendar calendar = buildCalendarObject(args);
         printMonth(calendar);
-//        printFullYear(calendar);
+        printFullYear(calendar);
     }
 
     private static boolean validateArguments(String[] args)
@@ -75,7 +75,8 @@ public class Ex13_04
         // loop terminates when month changes (jan 31 -> feb 1)
         for (int i = 1; i == calendar.get(Calendar.DATE); i++, calendar.add(Calendar.DATE, 1))
         {
-            if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+            if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+                    && calendar.get(Calendar.DATE) != calendar.getActualMaximum(Calendar.DATE))
                 System.out.printf("%4d%n", calendar.get(Calendar.DATE));
             else
                 System.out.printf("%4d", calendar.get(Calendar.DATE));
