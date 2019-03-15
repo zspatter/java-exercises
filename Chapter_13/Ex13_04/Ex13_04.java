@@ -12,7 +12,7 @@ public class Ex13_04
         }
         Calendar calendar = buildCalendarObject(args);
         printMonth(calendar);
-        printFullYear(calendar);
+//        printFullYear(calendar);
     }
 
     private static boolean validateArguments(String[] args)
