@@ -81,7 +81,7 @@ public class Ex13_04
 
         for (int i = calendar.get(Calendar.DATE); i <= calendar.getActualMaximum(Calendar.DATE); i++, calendar.add(Calendar.DATE, 1))
         {
-            if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+            if (calendar.get(Calendar.DAY_OF_WEEK) == 7)
                 System.out.printf("%4d\n", i);
             else
                 System.out.printf("%4d", i);
@@ -98,7 +98,7 @@ public class Ex13_04
 
     private static void printFullYear(Calendar calendar)
     {
-        Calendar tempCal = new GregorianCalendar(calendar.get(Calendar.YEAR), Calendar.JANUARY, 1);
+        Calendar tempCal = new GregorianCalendar(calendar.get(Calendar.YEAR), 0, 1);
 
         for (int i = 0; i < 12; i++)
         {
