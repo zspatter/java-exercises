@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -10,9 +14,10 @@ public class Ex13_04
             System.out.println("Usage: java Ex13_04 [month (1-12)] [year (4 digits)]");
             System.exit(1);
         }
+
         Calendar calendar = buildCalendarObject(args);
         printMonth(calendar);
-//        printFullYear(calendar);
+        exportFullYear(calendar);
     }
 
     private static boolean validateArguments(String[] args)
@@ -39,49 +44,58 @@ public class Ex13_04
     private static Calendar buildCalendarObject(String[] args)
     {
         if (args.length == 2)
-            return new GregorianCalendar(Integer.parseInt(args[1]), Integer.parseInt(args[0]) - 1, 1);
+            return new GregorianCalendar(Integer.parseInt(args[1]),
+                    Integer.parseInt(args[0]) - 1,
+                    1);
 
         Calendar calendar = Calendar.getInstance();
         if (args.length == 1)
-            return new GregorianCalendar(calendar.get(Calendar.YEAR), Integer.parseInt(args[0]) - 1, 1);
+            return new GregorianCalendar(calendar.get(Calendar.YEAR),
+                    Integer.parseInt(args[0]) - 1,
+                    1);
         else
-            return new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1);
+            return new GregorianCalendar(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), 1);
     }
 
     private static void printMonth(Calendar calendar)
     {
-        printMonthHeader(calendar);
-        printMonthBody(calendar);
+        System.out.print(buildMonthHeader(calendar) + buildMonthBody(calendar));
     }
 
-    private static void printMonthHeader(Calendar calendar)
+    private static String buildMonthHeader(Calendar calendar)
     {
         int length = (29 / 2) - ((getMonthName(calendar.get(Calendar.MONTH)).length() + 5) / 2);
-        String centerHeader = "%" + length + "s%s %d%n";
+        String centerHeader = "%" + length + "s%s %d%n", str = "";
 
-        System.out.printf(centerHeader, "", getMonthName(calendar.get(Calendar.MONTH)), calendar.get(Calendar.YEAR));
-        System.out.println("-----------------------------");
-        System.out.printf("%4s%4s%4s%4s%4s%4s%4s\n", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+        str += String.format(centerHeader, "",
+                getMonthName(calendar.get(Calendar.MONTH)),
+                calendar.get(Calendar.YEAR));
+        str += String.format("%s%n", "-----------------------------");
+        str += String.format("%4s%4s%4s%4s%4s%4s%4s%n",
+                "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+        return str;
     }
 
-    private static void printMonthBody(Calendar calendar)
+    private static String buildMonthBody(Calendar calendar)
     {
         String padding = "";
+        StringBuilder sb = new StringBuilder();
 
         // Pad space before the first day of the month
         for (int i = 1; i < calendar.get(Calendar.DAY_OF_WEEK); i++)
-            System.out.printf("%4s", padding);
+            sb.append(String.format("%4s", padding));
 
         // loop terminates when month changes (jan 31 -> feb 1)
         for (int i = 1; i == calendar.get(Calendar.DATE); i++, calendar.add(Calendar.DATE, 1))
         {
             if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
                     && calendar.get(Calendar.DATE) != calendar.getActualMaximum(Calendar.DATE))
-                System.out.printf("%4d%n", calendar.get(Calendar.DATE));
+                sb.append(String.format("%4d%n", calendar.get(Calendar.DATE)));
             else
-                System.out.printf("%4d", calendar.get(Calendar.DATE));
+                sb.append(String.format("%4d", calendar.get(Calendar.DATE)));
         }
-        System.out.println();
+        return sb.toString();
     }
 
     private static String getMonthName(int month)
@@ -91,14 +105,30 @@ public class Ex13_04
         return months[month];
     }
 
-    private static void printFullYear(Calendar calendar)
+    /**
+     * Writes the full annual calendar for the given year to a .txt file
+     *
+     * @param calendar
+     */
+    private static void exportFullYear(Calendar calendar)
     {
-        Calendar tempCal = new GregorianCalendar(calendar.get(Calendar.YEAR), Calendar.JANUARY, 1);
+        StringBuilder sb = new StringBuilder();
+        File file = new File("annual_calendar.txt");
+        Calendar calendarCopy = (Calendar) calendar.clone();
+        calendarCopy.set(Calendar.MONTH, 0);
 
         for (int i = 0; i < 12; i++)
+            sb.append(String.format("%s%s%n%n",
+                    buildMonthHeader(calendarCopy),
+                    buildMonthBody(calendarCopy)));
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file)))
         {
-            printMonth(tempCal);
-            System.out.println();
+            bufferedWriter.write(sb.toString());
+        } catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+            e.getStackTrace();
         }
     }
 }
