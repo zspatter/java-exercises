@@ -60,20 +60,28 @@ public class Ex13_04
 
     private static void printMonth(Calendar calendar)
     {
-        System.out.print(buildMonthHeader(calendar) + buildMonthBody(calendar));
+        System.out.println(buildMonthHeader(calendar, true) + buildMonthBody(calendar));
     }
 
-    private static String buildMonthHeader(Calendar calendar)
+    private static String buildMonthHeader(Calendar calendar, boolean isColored)
     {
+    	String asni_grey = "";
+    	String ansi_reset = "";
+    	if (isColored)
+    	{
+    		asni_grey = "\033[38;5;243m";
+    		ansi_reset = "\033[0m";
+    	}
         int length = (29 / 2) - ((getMonthName(calendar.get(Calendar.MONTH)).length() + 5) / 2);
-        String centerHeader = "%" + length + "s%s %d%n", str = "";
+        String centerHeader = "%" + length + "s%s%s %d%n", str = "";
 
         str += String.format(centerHeader, "",
+        		asni_grey,
                 getMonthName(calendar.get(Calendar.MONTH)),
                 calendar.get(Calendar.YEAR));
         str += String.format("%s%n", "-----------------------------");
-        str += String.format("%4s%4s%4s%4s%4s%4s%4s%n",
-                "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+        str += String.format("%4s%4s%4s%4s%4s%4s%4s%s%n",
+                "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", ansi_reset);
         return str;
     }
 
@@ -119,7 +127,7 @@ public class Ex13_04
 
         for (int i = 0; i < 12; i++)
             sb.append(String.format("%s%s%n%n",
-                    buildMonthHeader(calendarCopy),
+                    buildMonthHeader(calendarCopy, false),
                     buildMonthBody(calendarCopy)));
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file)))
