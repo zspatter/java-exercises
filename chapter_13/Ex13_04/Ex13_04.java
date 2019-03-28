@@ -64,7 +64,6 @@ public class Ex13_04
     	final String ANSI_BODY = "\033[38;5;208m";
     	final String ANSI_RESET = "\033[0m";
 
-        //System.out.println(buildMonthHeader(calendar, true) + buildMonthBody(calendar, true));
         System.out.printf("%s%s%s%s%s\n", ANSI_HEADER, buildMonthHeader(calendar), ANSI_BODY, buildMonthBody(calendar), ANSI_RESET);
     }
 
