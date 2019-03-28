@@ -60,48 +60,38 @@ public class Ex13_04
 
     private static void printMonth(Calendar calendar)
     {
-        System.out.println(buildMonthHeader(calendar, true) + buildMonthBody(calendar, true));
+    	final String ANSI_HEADER = "\033[38;5;202m";
+    	final String ANSI_BODY = "\033[38;5;208m";
+    	final String ANSI_RESET = "\033[0m";
+
+        //System.out.println(buildMonthHeader(calendar, true) + buildMonthBody(calendar, true));
+        System.out.printf("%s%s%s%s%s\n", ANSI_HEADER, buildMonthHeader(calendar), ANSI_BODY, buildMonthBody(calendar), ANSI_RESET);
     }
 
-    private static String buildMonthHeader(Calendar calendar, boolean isColored)
+    private static String buildMonthHeader(Calendar calendar)
     {
-        String ansi_orange = "";
-        String ansi_reset = "";
-        if (isColored)
-        {
-            ansi_orange = "\033[38;5;202m";
-            ansi_reset = "\033[0m";
-        }
         int length = (29 / 2) - ((getMonthName(calendar.get(Calendar.MONTH)).length() + 5) / 2);
-        String centerHeader = "%" + length + "s%s%s %d%n", str = "";
+        String centerHeader = "%" + length + "s%s %d\n", str = "";
 
         str += String.format(centerHeader, "",
-                ansi_orange,
                 getMonthName(calendar.get(Calendar.MONTH)),
                 calendar.get(Calendar.YEAR));
         str += String.format("%s%n", "-----------------------------");
-        str += String.format("%4s%4s%4s%4s%4s%4s%4s%s%n",
-                "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", ansi_reset);
+        str += String.format("%4s%4s%4s%4s%4s%4s%4s%n",
+                "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
         return str;
     }
 
-    private static String buildMonthBody(Calendar calendar, boolean isColored)
+    private static String buildMonthBody(Calendar calendar)
     {
         String padding = "";
         StringBuilder sb = new StringBuilder();
 	String ansi_orange = "";
-        String ansi_reset = "";
-        if (isColored)
-        {
-            ansi_orange = "\033[38;5;208m";
-            ansi_reset = "\033[0m";
-        }
 
         // Pad space before the first day of the month
         for (int i = 1; i < calendar.get(Calendar.DAY_OF_WEEK); i++)
             sb.append(String.format("%4s", padding));
 	
-	sb.append(ansi_orange);
         // loop terminates when month changes (jan 31 -> feb 1)
         for (int i = 1; i == calendar.get(Calendar.DATE); i++, calendar.add(Calendar.DATE, 1))
         {
@@ -111,7 +101,7 @@ public class Ex13_04
             else
                 sb.append(String.format("%4d", calendar.get(Calendar.DATE)));
         }
-	sb.append(ansi_reset);
+
         return sb.toString();
     }
 
@@ -136,8 +126,8 @@ public class Ex13_04
 
         for (int i = 0; i < 12; i++)
             sb.append(String.format("%s%s%n%n",
-                    buildMonthHeader(calendarCopy, false),
-                    buildMonthBody(calendarCopy, false)));
+                    buildMonthHeader(calendarCopy),
+                    buildMonthBody(calendarCopy)));
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file)))
         {
