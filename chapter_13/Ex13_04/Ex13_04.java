@@ -65,18 +65,18 @@ public class Ex13_04
 
     private static String buildMonthHeader(Calendar calendar, boolean isColored)
     {
-        String asni_orange = "";
+        String ansi_orange = "";
         String ansi_reset = "";
         if (isColored)
         {
-            asni_orange = "\033[38;5;202m";
+            ansi_orange = "\033[38;5;202m";
             ansi_reset = "\033[0m";
         }
         int length = (29 / 2) - ((getMonthName(calendar.get(Calendar.MONTH)).length() + 5) / 2);
         String centerHeader = "%" + length + "s%s%s %d%n", str = "";
 
         str += String.format(centerHeader, "",
-                asni_orange,
+                ansi_orange,
                 getMonthName(calendar.get(Calendar.MONTH)),
                 calendar.get(Calendar.YEAR));
         str += String.format("%s%n", "-----------------------------");
@@ -89,11 +89,11 @@ public class Ex13_04
     {
         String padding = "";
         StringBuilder sb = new StringBuilder();
-	String asni_orange = "";
+	String ansi_orange = "";
         String ansi_reset = "";
         if (isColored)
         {
-            asni_orange = "\033[38;5;208m";
+            ansi_orange = "\033[38;5;208m";
             ansi_reset = "\033[0m";
         }
 
@@ -101,7 +101,7 @@ public class Ex13_04
         for (int i = 1; i < calendar.get(Calendar.DAY_OF_WEEK); i++)
             sb.append(String.format("%4s", padding));
 	
-	sb.append(asni_orange);
+	sb.append(ansi_orange);
         // loop terminates when month changes (jan 31 -> feb 1)
         for (int i = 1; i == calendar.get(Calendar.DATE); i++, calendar.add(Calendar.DATE, 1))
         {
