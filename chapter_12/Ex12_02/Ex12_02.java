@@ -19,8 +19,6 @@ public class Ex12_02
             String month = months[input - 1];
             int days = dom[input - 1];
 			System.out.printf("The month corresponding with your input is %s%s%s which has %s%d%s days in it.", ANSI_ORANGE, month, ANSI_RESET, ANSI_ORANGE, days, ANSI_RESET);
-            //System.out.println("The month corresponding with your input is "
-                    //+ month + " which has " + days + " days in it.");
         } catch (ArrayIndexOutOfBoundsException e)
         {
             System.out.println("Invalid input.");
