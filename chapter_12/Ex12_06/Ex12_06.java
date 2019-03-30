@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Ex12_06
 {
     private static Scanner scanner = new Scanner(System.in);
+    private static final String ANSI_ORANGE = "\033[38;5;196m";
+    private static final String ANSI_RESET = "\033[0m";
 
     public static void main(String[] args)
     {
@@ -11,7 +13,13 @@ public class Ex12_06
         hex = hex.toUpperCase();
         try
         {
-            System.out.println("The decimal value for hex number " + hex + " is " + hexToDecimal(hex));
+            System.out.printf("The decimal value for hex number %s%s%s is: %s%d%s\n", 
+                ANSI_ORANGE, 
+                hex, 
+                ANSI_RESET, 
+                ANSI_ORANGE, 
+                hexToDecimal(hex), 
+                ANSI_RESET);
         } catch (NumberFormatException e)
         {
             System.out.println(e.getMessage());
@@ -30,17 +38,15 @@ public class Ex12_06
                 throw new NumberFormatException("This is an invalid hex string.");
             }
 
-            char hexChar = (hex.charAt(i));
+            char hexChar = hex.charAt(i);
             decimalValue = decimalValue * 16 + hexCharToDecimal(hexChar);
         }
+
         return decimalValue;
     }
 
     private static int hexCharToDecimal(char ch)
     {
-        if (ch >= 'A' && ch <= 'F')
-            return 10 + ch - 'A';
-        else
-            return ch - '0';
+       return (ch >= 'A' && ch <= 'F') ? 10 + ch - 'A' : ch - '0';
     }
 }
