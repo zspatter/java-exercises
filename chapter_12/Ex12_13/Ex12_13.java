@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Ex12_13
 {
     private static int charCount, wordCount, lineCount;
+    private static final String ANSI_ORANGE = "\033[38;5;196m";
+    private static final String ANSI_RESET = "\033[0m";
 
     public static void main(String[] args)
     {
@@ -52,9 +54,12 @@ public class Ex12_13
 
     private static void printCounts()
     {
-        System.out.printf("%-12s %d\n", "Characters:", charCount);
-        System.out.printf("%-12s %d\n", "Words:", wordCount);
-        System.out.printf("%-12s %d\n", "Lines:", lineCount);
+        System.out.printf("%-12s %s%d%s\n", "Characters:", 
+                ANSI_ORANGE, charCount, ANSI_RESET);
+        System.out.printf("%-12s %s%d%s\n", "Words:", 
+                ANSI_ORANGE, wordCount, ANSI_RESET);
+        System.out.printf("%-12s %s%d%s\n", "Lines:", 
+                ANSI_ORANGE, lineCount, ANSI_RESET);
     }
 
     private static void validateCommandArguments(String[] args)
