@@ -45,8 +45,9 @@ public class Ex12_06
         return decimalValue;
     }
 
+    // converts a single hex char to it's decimal value
     private static int hexCharToDecimal(char ch)
     {
-       return (ch >= 'A' && ch <= 'F') ? 10 + ch - 'A' : ch - '0';
+        return (ch >= 'A' && ch <= 'F') ? 10 + ch - 'A' : ch - '0';
     }
 }
