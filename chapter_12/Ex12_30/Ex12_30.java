@@ -53,8 +53,14 @@ public class Ex12_30
 
     private static void printResults()
     {
+        final String ANSI_CYAN = "\033[36m";
+        final String ANSI_YELLOW = "\033[33;1m";
+        final String ANSI_RESET = "\033[0m";
+
         for (int i = 0; i < alphaCounts.length; i++)
-            System.out.printf("Total number of %s's:%3s%d\n", (char) ('A' + i), "", alphaCounts[i]);
+            System.out.printf("Total number of %s%s%s's:%3s%s%d%s\n",
+            ANSI_CYAN, (char) ('A' + i), ANSI_RESET, 
+            "", ANSI_YELLOW, alphaCounts[i], ANSI_RESET);
     }
 
     private static void verifyFileExists(File file)
