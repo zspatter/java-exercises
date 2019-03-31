@@ -58,7 +58,7 @@ public class Ex12_30
         final String ANSI_RESET = "\033[0m";
 
         for (int i = 0; i < alphaCounts.length; i++)
-            System.out.printf("Total number of %s%s%s's:%3s%s%d%s\n",
+            System.out.printf("Total number of %s%s's%s:%3s%s%d%s\n",
             ANSI_CYAN, (char) ('A' + i), ANSI_RESET, 
             "", ANSI_YELLOW, alphaCounts[i], ANSI_RESET);
     }
