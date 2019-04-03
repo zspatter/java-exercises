@@ -44,7 +44,7 @@ public class StopSign extends StackPane
         // creates text "STOP" and scales it relative to the size of the sign
         Text text = new Text("STOP");
         text.setFill(Color.WHITE);
-        text.setFont(Font.font("Comic Sans", FontWeight.BOLD, size / 1.5));
+        text.setFont(Font.font("Verdana", FontWeight.BOLD, size / 2));
         return text;
     }
 }
