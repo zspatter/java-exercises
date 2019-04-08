@@ -30,7 +30,7 @@ public class Ex17_02
             while (input.available() != 0)
                 sum += input.readInt();
 
-            System.out.printf("Sum is: %s%,d%s\n", ANSI_CYAN, sum, ANSI_RESET);
+            System.out.printf("The sum of all integers is: %s%,d%s\n", ANSI_CYAN, sum, ANSI_RESET);
         }
     }
 }
