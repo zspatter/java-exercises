@@ -9,12 +9,21 @@ public class Ex17_02
 
     public static void main(String[] args) throws IOException
     {
+        writeDat();
+        readDat();
+    }
+
+    private static void writeDat() throws IOException
+    {
         try (DataOutputStream output = new DataOutputStream(new FileOutputStream("Ex17_02.dat", true)))
         {
             for (int i = 0; i < 150; i++)
                 output.writeInt(random.nextInt(1500));
         }
+    }
 
+    private static void readDat() throws IOException
+    {
         try (DataInputStream input = new DataInputStream(new FileInputStream("Ex17_02.dat")))
         {
             int sum = 0;
